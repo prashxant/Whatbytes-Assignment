@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Search } from "lucide-react";
+import { ShoppingCart, Search, User } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useState, useEffect } from "react";
@@ -68,24 +68,37 @@ export default function Header() {
           />
         </div>
 
-        {/* Cart */}
-        <Link
-          href="/cart"
-          id="cart-icon-link"
-          className="relative flex items-center gap-2 bg-[#1a56db] hover:bg-[#1447b8] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shrink-0"
-          aria-label={`Cart, ${totalItems} items`}
-        >
-          <ShoppingCart size={18} />
-          <span className="hidden sm:inline">Cart</span>
-          {totalItems > 0 && (
-            <span
-              className="absolute -top-2 -right-2 min-w-[20px] h-5 flex items-center justify-center bg-red-500 text-white text-xs font-bold rounded-full px-1"
-              aria-hidden="true"
-            >
-              {totalItems > 99 ? "99+" : totalItems}
-            </span>
-          )}
-        </Link>
+        {/* Cart & Profile on the right */}
+        <div className="flex items-center gap-3 shrink-0">
+          <Link
+            href="/cart"
+            id="cart-icon-link"
+            className="relative flex items-center gap-2 bg-[#1a56db] hover:bg-[#1447b8] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            aria-label={`Cart, ${totalItems} items`}
+          >
+            <ShoppingCart size={18} />
+            <span className="hidden sm:inline">Cart</span>
+            {totalItems > 0 && (
+              <span
+                className="absolute -top-2 -right-2 min-w-[20px] h-5 flex items-center justify-center bg-red-500 text-white text-xs font-bold rounded-full px-1"
+                aria-hidden="true"
+              >
+                {totalItems > 99 ? "99+" : totalItems}
+              </span>
+            )}
+          </Link>
+
+          {/* Profile / Avatar */}
+          <button
+            id="profile-avatar-btn"
+            type="button"
+            className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-blue-300"
+            aria-label="User Profile"
+            title="User Profile"
+          >
+            <User size={18} />
+          </button>
+        </div>
       </div>
     </header>
   );

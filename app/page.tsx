@@ -9,6 +9,7 @@ import { Package } from "lucide-react";
 interface HomePageProps {
   searchParams: Promise<{
     category?: string;
+    brand?: string;
     search?: string;
     maxPrice?: string;
   }>;
@@ -17,19 +18,21 @@ interface HomePageProps {
 export default async function HomePage({ searchParams }: HomePageProps) {
   const params = await searchParams;
   const category = params.category ?? "All";
+  const brand = params.brand ?? "All";
   const search = (params.search ?? "").toLowerCase();
   const maxPrice = Number(params.maxPrice ?? MAX_PRICE);
 
   // Server-side filtering
   const filtered = products.filter((p) => {
     const matchesCategory = category === "All" || p.category === category;
+    const matchesBrand = brand === "All" || p.brand.toLowerCase() === brand.toLowerCase();
     const matchesSearch =
       !search ||
       p.title.toLowerCase().includes(search) ||
       p.description.toLowerCase().includes(search) ||
       p.brand.toLowerCase().includes(search);
     const matchesPrice = p.price <= maxPrice;
-    return matchesCategory && matchesSearch && matchesPrice;
+    return matchesCategory && matchesBrand && matchesSearch && matchesPrice;
   });
 
   return (
@@ -42,7 +45,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Sidebar */}
           <aside className="w-full lg:w-56 shrink-0">
-            <Suspense fallback={<div className="h-64 bg-[#eef2fb] rounded-xl animate-pulse" />}>
+            <Suspense fallback={<div className="h-64 bg-[#1053a6] rounded-xl animate-pulse" />}>
               <FilterSidebar />
             </Suspense>
           </aside>
