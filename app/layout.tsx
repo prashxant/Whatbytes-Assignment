@@ -18,7 +18,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} h-full`}>
+    <html
+      lang="en"
+      className={`${inter.variable} h-full`}
+      data-scroll-behavior="smooth"
+    >
       <body className="min-h-full flex flex-col bg-[#f4f6fb]">
         <CartProvider>{children}</CartProvider>
       </body>
